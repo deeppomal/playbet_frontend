@@ -3,6 +3,7 @@ import { useFootballAPI } from '../hooks/useFootballAPI'
 import { FixtureCard } from './FixtureCard'
 import { useSelector, } from 'react-redux';
 import { getDate } from '../reducers/dateReducer';
+import { getUser } from '../reducers/userReducer';
 
 export const FixtureContainer = ({toggleBettingModal}) => {
 
