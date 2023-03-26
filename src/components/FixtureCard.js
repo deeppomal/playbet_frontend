@@ -28,7 +28,6 @@ export const FixtureCard = ({index,toggleBettingModal,data}) => {
         <div className='w-1/3 flex items-center justify-center'>
             <p className='text-[#dbd9d8] font-medium text-lg'>{data?.teams?.away?.name}</p>
         </div>
-       
     </div>
   )
 }

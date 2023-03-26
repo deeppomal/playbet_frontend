@@ -1,37 +1,42 @@
 import React,{useState} from 'react'
 import { BettingCard } from './BettingCard'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getFixture } from '../reducers/fixtureReducer'
 import { useFixtureBets } from '../hooks/useFixtureBets'
-const dataD =[
-  {
-    id:1,
-    team:'Real Madrid'
-  },
-  {
-    id:2,
-    team:'Draw'
-  },
-  {
-    id:3,
-    team:'Barcelona'
-  },
+import { useAddBet } from '../hooks/useAddBet'
+import { changeUser, getUser } from '../reducers/userReducer'
+import { useUpdateUser } from '../hooks/useUpdateUser'
 
-]
 export const BettingModal = ({toggleBettingModal}) => {
 
+  const dispatch = useDispatch()
   const selectedFixture = useSelector(getFixture)
+  const storedUser = useSelector(getUser)
 
-  const url = 'https://api-football-v1.p.rapidapi.com/v3/odds';
-  const {data,isError,error,isLoading} = useFixtureBets(url,selectedFixture?.fixture?.id)
-
-  const handleClick = (e) => {
-    e.stopPropagation()
-  }
   const [stakeInput,setStakeInput] = useState()
   const [expReturn,setExpReturn] = useState(0.00)
   const [selectedBet,setSelectedBet] = useState([])
 
+  const url = 'https://api-football-v1.p.rapidapi.com/v3/odds';
+  const {data,isLoading,isFetched} = useFixtureBets(url,selectedFixture?.fixture?.id)
+  const {data: addBetData,refetch} = useAddBet({
+    userId:storedUser?.googleId,
+    fixtureId:data?.data?.response[0]?.fixture?.id,
+    home:selectedFixture?.teams?.home?.name,
+    away:selectedFixture?.teams?.away?.name,
+    betAmount:stakeInput,
+    expectedReturn:expReturn,
+    selectedTeam:selectedBet.value,
+    hasWon:false,
+    amountWon:0,
+    oddsDetail:data?.data?.response[0]?.bookmakers[0]?.bets[0]?.values,
+    isResultChecked:false,      
+  })
+  const {data:dataUpdatedUser,refetch: refetchUpdatedUser} = useUpdateUser(storedUser)
+
+  const handleClick = (e) => {
+    e.stopPropagation()
+  }
   const handleBetChange = (bet) => {
     if(selectedBet.value === bet.value){
       setSelectedBet([])
@@ -57,6 +62,21 @@ export const BettingModal = ({toggleBettingModal}) => {
       setExpReturn(0)
     }
   }
+  const handleSaveBtn = () => {
+    if(stakeInput){
+      dispatch(changeUser({
+        username : storedUser.username,
+        userEmail : storedUser.userEmail,
+        googleId : storedUser.googleId,
+        photo : storedUser.photo,
+        balance : storedUser.balance - stakeInput,
+      }))
+    }
+    refetch()
+    refetchUpdatedUser()
+    toggleBettingModal()
+  }
+
   return (
     <div className='bg-[#161616]/[0.9] h-full w-full 
     absolute top-0 left-0 z-20 flex items-center 
@@ -81,7 +101,7 @@ export const BettingModal = ({toggleBettingModal}) => {
             :
             data?.data?.response[0]?.bookmakers[0]?.bets[0]?.values?.map((item,index) => {
               return(
-                <BettingCard key={item.id} index={index} data={item} handleBetChange={handleBetChange} selectedBet={selectedBet}/>
+                <BettingCard key={index} index={index} data={item} handleBetChange={handleBetChange} selectedBet={selectedBet}/>
               )
             })
           }
@@ -106,11 +126,10 @@ export const BettingModal = ({toggleBettingModal}) => {
           </div>
         </div>
         <div className='bg-[#161616] rounded-md w-1/4 p-2 cursor-pointer flex items-center justify-center mt-10'
-        onClick={toggleBettingModal}>
+        onClick={handleSaveBtn}>
           <p className='text-[#dbd9d8] font-medium text-lg'>Save</p>
         </div>
       </div>
-      
     </div>
   )
 }

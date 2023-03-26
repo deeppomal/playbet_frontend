@@ -10,16 +10,12 @@ export const FixtureContainer = ({toggleBettingModal}) => {
   const dateStored = useSelector(getDate);
 
   const url = 'https://api-football-v1.p.rapidapi.com/v3/fixtures';
-  const {data,isError,error,isLoading} = useFootballAPI('fixtures',url,dateStored,'39')
+  // const {data,isError,error,isLoading} = useFootballAPI('fixtures',url,dateStored,'39')
+  const {data,isError,error,isLoading} = useFootballAPI('fixtures',url,dateStored,'960')
 
   const getFilteredFixtures = () =>{
     let fixtures = data?.data?.response
-    data?.data?.response.filter( item => {
-      if(new Date() < new Date(item?.fixture?.timestamp)){
-        return item
-      }
-    })
-    return fixtures
+    return fixtures.filter( item => (new Date(item?.fixture?.timestamp * 1000)) > (new Date()))
   }
   if(isLoading){
     return(

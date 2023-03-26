@@ -15,7 +15,6 @@ export const MyBetsCard = ({toggleBettingModal}) => {
         <div className='w-1/2 flex items-center justify-center'>
             <p className='text-[#dbd9d8] font-medium text-lg'>Barcelona</p>
         </div>
-       
     </div>
   )
 }
