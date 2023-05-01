@@ -12,6 +12,7 @@ export const BettingModal = ({toggleBettingModal}) => {
   const dispatch = useDispatch()
   const selectedFixture = useSelector(getFixture)
   const storedUser = useSelector(getUser)
+  const localUser = JSON.parse(localStorage.getItem('userData'));
 
   const [stakeInput,setStakeInput] = useState()
   const [expReturn,setExpReturn] = useState(0.00)
@@ -20,7 +21,7 @@ export const BettingModal = ({toggleBettingModal}) => {
   const url = 'https://api-football-v1.p.rapidapi.com/v3/odds';
   const {data,isLoading,isFetched} = useFixtureBets(url,selectedFixture?.fixture?.id)
   const {data: addBetData,refetch} = useAddBet({
-    userId:storedUser?.googleId,
+    userId:localUser?.googleId? localUser?.googleId : storedUser?.googleId,
     fixtureId:data?.data?.response[0]?.fixture?.id,
     home:selectedFixture?.teams?.home?.name,
     away:selectedFixture?.teams?.away?.name,

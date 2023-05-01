@@ -34,6 +34,7 @@ export const Login = () => {
     const {data} = useGoogleSave(userData,userData?.email)
     if(data) {
         dispatch(changeUser(data?.data))
+        localStorage.setItem('userData', JSON.stringify(data?.data));
         navigate("/");
     }
 

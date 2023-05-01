@@ -2,8 +2,8 @@ import { useQuery } from 'react-query'
 import axios from 'axios'
 
 const fetchFootballData = (url,date,leagueCode)=>{
-    // let year = new Date().getFullYear()-1
-    let year = '2023'
+    let year = new Date().getFullYear()-1
+    // let year = '2023'
     const options = {
         method: 'GET',
         url: url,

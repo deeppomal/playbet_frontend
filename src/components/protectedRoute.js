@@ -7,8 +7,9 @@ const ProtectedRoute = ({children}) => {
 
     const userStored = useSelector(getUser);
     let location = useLocation();
+    const checkUser = JSON.parse(localStorage.getItem('userData'));
 
-    if(!userStored?.username) {
+    if(!checkUser?.username) {
         return <Navigate to="/login" state={{ from: location}} replace />
     }
  return children
