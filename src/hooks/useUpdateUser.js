@@ -1,20 +1,13 @@
 import { useQuery } from 'react-query'
 import axios from 'axios'
 
-const fetchUpdateUser = (data)=>{
-    const options = {
-        method: 'PATCH',
-        url: `http://localhost:4000/auth/update-user/${data.googleId}`,
-        data: {
-            balance:data.balance
-        },
-    };
-    return axios.request(options)
+const fetchUpdateUser = (id,betAmount)=>{
+    return axios.patch('http://localhost:4000/auth/update-user/'+id, {balance : -betAmount});
 }
-export const useUpdateUser = (data) => {
+export const useUpdateUser = (id,betAmount) => {
     return useQuery(
-        'updateuser-'+data?.id,
-        ()=>fetchUpdateUser(data),
+        'updateuser' + id,
+        ()=>fetchUpdateUser(id,betAmount),
         {
             retryOnMount:false,
             refetchOnWindowFocus:false,

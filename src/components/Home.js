@@ -24,7 +24,7 @@ export const Home = () => {
   return (
     <div className='bg-[#161616] min-h-screen relative' >
       {isBettingModalVisible && <BettingModal toggleBettingModal={toggleBettingModal} />}
-      <p className='text-white text-right pr-40 pt-12'>$ {localUser?.balance? localUser.balance : storedUser.balance}</p>
+      <p className='text-white text-right pr-40 pt-12'>$ {localUser?.balance}</p>
       <p className='text-white text-right pr-40 pt-12 cursor-pointer' onClick={logout}>Logout</p>
       <div className="flex items-center flex-col z-10 pt-16">
         <MyBets toggleBettingModal={toggleBettingModal}  />

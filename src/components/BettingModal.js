@@ -21,7 +21,7 @@ export const BettingModal = ({toggleBettingModal}) => {
   const url = 'https://api-football-v1.p.rapidapi.com/v3/odds';
   const {data,isLoading,isFetched} = useFixtureBets(url,selectedFixture?.fixture?.id)
   const {data: addBetData,refetch} = useAddBet({
-    userId:localUser?.googleId? localUser?.googleId : storedUser?.googleId,
+    userId:localUser?.googleId,
     fixtureId:data?.data?.response[0]?.fixture?.id,
     home:selectedFixture?.teams?.home?.name,
     away:selectedFixture?.teams?.away?.name,
@@ -33,7 +33,7 @@ export const BettingModal = ({toggleBettingModal}) => {
     oddsDetail:data?.data?.response[0]?.bookmakers[0]?.bets[0]?.values,
     isResultChecked:false,      
   })
-  const {data:dataUpdatedUser,refetch: refetchUpdatedUser} = useUpdateUser(storedUser)
+  const {data:dataUpdatedUser,refetch: refetchUpdatedUser} = useUpdateUser(localUser.googleId,stakeInput)
 
   const handleClick = (e) => {
     e.stopPropagation()
@@ -63,19 +63,24 @@ export const BettingModal = ({toggleBettingModal}) => {
       setExpReturn(0)
     }
   }
-  const handleSaveBtn = () => {
+  const handleSaveBtn = async () => {
     if(stakeInput){
-      dispatch(changeUser({
-        username : storedUser.username,
-        userEmail : storedUser.userEmail,
-        googleId : storedUser.googleId,
-        photo : storedUser.photo,
-        balance : storedUser.balance - stakeInput,
-      }))
+      // dispatch(changeUser({
+      //   username : storedUser.username,
+      //   userEmail : storedUser.userEmail,
+      //   googleId : storedUser.googleId,
+      //   photo : storedUser.photo,
+      //   balance : storedUser.balance - stakeInput,
+      // }))
+      const localUser = JSON.parse(localStorage.getItem('userData'));
+      localUser.balance = localUser.balance - stakeInput
+      await localStorage.setItem('userData', JSON.stringify(localUser) );
+      await refetchUpdatedUser()
     }
     refetch()
-    refetchUpdatedUser()
+    
     toggleBettingModal()
+    
   }
 
   return (
