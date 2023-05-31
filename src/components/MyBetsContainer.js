@@ -15,7 +15,7 @@ export const MyBetsContainer = ({toggleBettingModal}) => {
     <div className='bg-[#202020] w-full mt-2
     rounded-md flex items-center flex-col p-1'>
       {
-        data?.data.map((item,index) => {
+        data?.data.reverse().slice(0,3).map((item,index) => {
           return(
             <MyBetsCard key={item._id} toggleBettingModal={toggleBettingModal} index={index} data={item} />
           )
