@@ -7,7 +7,8 @@ const fetchFootballData = (url,date,leagueCode)=>{
     const options = {
         method: 'GET',
         url: url,
-        params: {date: date,league: leagueCode, season: year},
+        // params: {date: date,league: leagueCode, season: year},
+        params: {date: date},
         headers: {
           'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
           'X-RapidAPI-Host': process.env.REACT_APP_HOST

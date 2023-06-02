@@ -15,7 +15,7 @@ export const FixtureCard = ({index,toggleBettingModal,data}) => {
   }
 
   return (
-    <div className={`flex w-11/12 items-center justify-center
+    <div className={`flex w-full items-center justify-center
     p-5 cursor-pointer `}
     onClick={handleClick}>
         <div className='w-1/3 flex items-center justify-center'>

@@ -4,6 +4,7 @@ import { FixtureCard } from './FixtureCard'
 import { useSelector, } from 'react-redux';
 import { getDate } from '../reducers/dateReducer';
 import { getUser } from '../reducers/userReducer';
+import { FixtureLeagueCard } from './FixtureLeagueCard';
 
 export const FixtureContainer = ({toggleBettingModal}) => {
 
@@ -15,7 +16,22 @@ export const FixtureContainer = ({toggleBettingModal}) => {
 
   const getFilteredFixtures = () =>{
     let fixtures = data?.data?.response
-    return fixtures.filter( item => (new Date(item?.fixture?.timestamp * 1000)) > (new Date()))
+    fixtures = fixtures.filter( fixture => (new Date(fixture?.fixture?.timestamp * 1000)) > (new Date()))
+    let groupedFixtures = {}
+    for(let i = 0; i<fixtures.length; i++){
+      groupedFixtures[fixtures[i].league.id] = groupedFixtures[fixtures[i].league.id] ? [...groupedFixtures[fixtures[i].league.id],fixtures[i]] : [fixtures[i]]
+    }
+    const leagueCodes = ['1','3','39','140','135','78','61'];
+    let filteredFixtures = []
+    for(let i in groupedFixtures){
+      if(leagueCodes.indexOf(i) != -1){
+        filteredFixtures.unshift([{id:i},groupedFixtures[i]])
+      }
+      else{
+        filteredFixtures.push([{id:i},groupedFixtures[i]])
+      }
+    }
+    return filteredFixtures
   }
   if(isLoading){
     return(
@@ -32,12 +48,12 @@ export const FixtureContainer = ({toggleBettingModal}) => {
     )
   }
   return (
-    <div className='bg-[#202020] w-1/2 mt-5
+    <div className='w-1/2 mt-5
     rounded-md flex items-center flex-col p-1'>
         {
-          getFilteredFixtures().map((item, index) => {
+          getFilteredFixtures().map((data, index) => {
             return(
-              <FixtureCard key={index} index={index} toggleBettingModal={toggleBettingModal} data={item} />
+              <FixtureLeagueCard toggleBettingModal={toggleBettingModal} data={data} />
             )
           })
         }
