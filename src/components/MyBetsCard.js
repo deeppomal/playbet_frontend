@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 
-export const MyBetsCard = ({toggleBettingModal,data,index}) => {
+export const MyBetsCard = ({data,index}) => {
 
   const [isDetailsVisible,setIsDetailsVisible] = useState(false)
   return (

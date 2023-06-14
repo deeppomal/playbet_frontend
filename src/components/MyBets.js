@@ -8,7 +8,7 @@ export const MyBets = ({toggleBettingModal}) => {
         <p className='text-[#dbd9d8] font-semibold text-lg'>My Bets</p>
         <p className='text-[#dbd9d8] cursor-pointer font-thin text-sm'>See all</p>
         </div>
-        <MyBetsContainer toggleBettingModal={toggleBettingModal}  />
+        <MyBetsContainer   />
     </div>
   )
 }

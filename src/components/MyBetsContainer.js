@@ -4,7 +4,7 @@ import { useGetBets } from '../hooks/useGetBets'
 import { getUser } from '../reducers/userReducer'
 import { MyBetsCard } from './MyBetsCard'
 
-export const MyBetsContainer = ({toggleBettingModal}) => {
+export const MyBetsContainer = ({}) => {
 
   const localUser = JSON.parse(localStorage.getItem('userData'));
   const storedUser = useSelector(getUser); 
@@ -17,7 +17,7 @@ export const MyBetsContainer = ({toggleBettingModal}) => {
       {
         data?.data.reverse().slice(0,3).map((item,index) => {
           return(
-            <MyBetsCard key={item._id} toggleBettingModal={toggleBettingModal} index={index} data={item} />
+            <MyBetsCard key={item._id} index={index} data={item} />
           )
         })
       }

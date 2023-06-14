@@ -20,7 +20,8 @@ export const useFixtureBets = (url,fixture) => {
         {
             retryOnMount:false,
             refetchOnWindowFocus:false,
-            staleTime:Infinity
+            staleTime:Infinity,
+            enabled:false
         }
     )
 }

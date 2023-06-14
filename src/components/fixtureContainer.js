@@ -48,7 +48,7 @@ export const FixtureContainer = ({toggleBettingModal}) => {
     )
   }
   return (
-    <div className='w-1/2 mt-5
+    <div className='w-3/4 mt-5
     rounded-md flex items-center flex-col p-1'>
         {
           getFilteredFixtures().map((data, index) => {

@@ -84,8 +84,8 @@ export const BettingModal = ({toggleBettingModal}) => {
   }
 
   return (
-    <div className='bg-[#161616]/[0.9] h-full w-full 
-    absolute top-0 left-0 z-20 flex items-center 
+    <div className='bg-[#161616]/[0.9] h-screen w-screen 
+    absolute  z-20 flex items-center 
     justify-center cursor-pointer'
       onClick={toggleBettingModal}>
       <div className='w-1/2 bg-[#202020] z-30 cursor-default
