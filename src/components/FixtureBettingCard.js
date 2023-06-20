@@ -16,6 +16,7 @@ export const FixtureBettingCard = ({data,toggleBettingCard}) => {
   const [stakeInput,setStakeInput] = useState()
   const [expReturn,setExpReturn] = useState(0.00)
   const [selectedBet,setSelectedBet] = useState([])
+  const [betError,setBetError] = useState('')
 
 
   const {data: addBetData,refetch} = useAddBet({
@@ -61,22 +62,37 @@ export const FixtureBettingCard = ({data,toggleBettingCard}) => {
       setExpReturn(0)
     }
   }
-  const handleSaveBtn = async () => {
-    if(stakeInput){
-      // dispatch(changeUser({
-      //   username : storedUser.username,
-      //   userEmail : storedUser.userEmail,
-      //   googleId : storedUser.googleId,
-      //   photo : storedUser.photo,
-      //   balance : storedUser.balance - stakeInput,
-      // }))
-      const localUser = JSON.parse(localStorage.getItem('userData'));
-      localUser.balance = localUser.balance - stakeInput
-      await localStorage.setItem('userData', JSON.stringify(localUser) );
-      await refetchUpdatedUser()
+  const checkBetLegibility = () => {
+    let legibility = {
+      isPossible: false,
+      message:''
     }
-    refetch()
-    toggleBettingCard()
+    const localUser = JSON.parse(localStorage.getItem('userData'));
+    if(localUser.balance < stakeInput){
+      legibility.isPossible= false
+      legibility.message =  'You don\'t have enough balance, try again with lesser bet amount'
+    }
+    else{
+      legibility.isPossible= true
+      legibility.message =  ''
+    }
+    return legibility
+  }
+  const handleSaveBtn = async () => {
+    let betLigibility = checkBetLegibility()
+    if(betLigibility.isPossible){
+      const localUser = JSON.parse(localStorage.getItem('userData'));
+      let tempUser = localUser
+      tempUser.balance = localUser.balance - stakeInput
+      localStorage.setItem('userData', JSON.stringify(tempUser) );
+      window.dispatchEvent(new Event("balanceUpdate"));
+      await refetchUpdatedUser()
+      refetch()
+      toggleBettingCard()
+    }
+    else{
+      setBetError(betLigibility.message)
+    }
   }
   return (
         <div className='w-full bg-[#080808] z-30 cursor-default
@@ -116,6 +132,7 @@ export const FixtureBettingCard = ({data,toggleBettingCard}) => {
                 value={'$ '+ expReturn } disabled />
             </div>
             </div>
+            {betError.length > 0 &&<p className='text-center text-red-500 mt-3'>{betError}</p>}
             <div className='bg-[#161616] rounded-md w-1/4 p-2 cursor-pointer flex items-center justify-center mt-10'
             onClick={handleSaveBtn}>
             <p className='text-[#dbd9d8] font-medium text-lg'>Save</p>

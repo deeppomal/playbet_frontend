@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useSelector } from 'react-redux';
 import { getUser } from '../reducers/userReducer';
 import { BettingModal } from './BettingModal';
@@ -11,11 +11,20 @@ export const Home = () => {
     const navigate = useNavigate();
     const [isBettingModalVisible,setIsBettingModalVisible] = 
     useState(false)
+    const [balance,SetBalance] = useState(0)
+    useEffect(()=>{
+      const localUser = JSON.parse(localStorage.getItem('userData'));
+      SetBalance(localUser.balance)
+    },[])
+    window.addEventListener("balanceUpdate",(e) => {
+      const localUser = JSON.parse(localStorage.getItem('userData'));
+      SetBalance(localUser.balance)
+   });
     const toggleBettingModal = () => {
       setIsBettingModalVisible(!isBettingModalVisible)
     }
     const[selectedDate,setSelectedDate] = useState('')
-    const localUser = JSON.parse(localStorage.getItem('userData'));
+
     const storedUser = useSelector(getUser)
     const logout = () => {
       localStorage.setItem('userData', JSON.stringify([]));
@@ -24,7 +33,7 @@ export const Home = () => {
   return (
     <div className='bg-[#161616] min-h-screen' >
       {isBettingModalVisible && <BettingModal toggleBettingModal={toggleBettingModal} />}
-      <p className='text-white text-right pr-40 pt-12'>$ {localUser?.balance}</p>
+      <p className='text-white text-right pr-40 pt-12'>$ {balance}</p>
       <p className='text-white text-right pr-40 pt-12 cursor-pointer' onClick={logout}>Logout</p>
       <div className="flex items-center flex-col z-10 pt-16">
         {/* <MyBets /> */}
