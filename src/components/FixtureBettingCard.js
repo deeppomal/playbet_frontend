@@ -68,13 +68,25 @@ export const FixtureBettingCard = ({data,toggleBettingCard}) => {
       message:''
     }
     const localUser = JSON.parse(localStorage.getItem('userData'));
-    if(localUser.balance < stakeInput){
-      legibility.isPossible= false
-      legibility.message =  'You don\'t have enough balance, try again with lesser bet amount'
+    if(stakeInput>0){
+      if(selectedBet?.value?.length > 0){
+        if(localUser.balance < stakeInput){
+          legibility.isPossible= false
+          legibility.message =  'You don\'t have enough balance, try again with lesser stake amount'
+        }
+        else{
+          legibility.isPossible= true
+          legibility.message =  ''
+        }
+      }
+      else{
+        legibility.isPossible = false
+        legibility.message =  'Please select one option you would like to bet on'
+      }
     }
-    else{
-      legibility.isPossible= true
-      legibility.message =  ''
+    else {
+      legibility.isPossible = false
+      legibility.message =  'Please enter the stake amount that is more than 0'
     }
     return legibility
   }
