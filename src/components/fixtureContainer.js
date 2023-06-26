@@ -1,15 +1,15 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { useFootballAPI } from '../hooks/useFootballAPI'
 import { FixtureCard } from './FixtureCard'
 import { useSelector, } from 'react-redux';
 import { getDate } from '../reducers/dateReducer';
 import { getUser } from '../reducers/userReducer';
 import { FixtureLeagueCard } from './FixtureLeagueCard';
+import { LeagueCard } from './leagueCard';
 
 export const FixtureContainer = ({toggleBettingModal}) => {
 
   const dateStored = useSelector(getDate);
-
   const url = 'https://api-football-v1.p.rapidapi.com/v3/fixtures';
   const {data,isError,error,isLoading} = useFootballAPI('fixtures',url,dateStored,'3')
   // const {data,isError,error,isLoading} = useFootballAPI('fixtures',url,dateStored,'960')
@@ -33,6 +33,7 @@ export const FixtureContainer = ({toggleBettingModal}) => {
     }
     return filteredFixtures
   }
+
   if(isLoading){
     return(
       <div className='mt-10'>
@@ -47,9 +48,21 @@ export const FixtureContainer = ({toggleBettingModal}) => {
       </div>
     )
   }
+  console.log('fixx', getFilteredFixtures())
   return (
-    <div className='w-3/4 mt-5
-    rounded-md flex items-center flex-col p-1'>
+    <div className='w-full mt-5 rounded-md flex p-1  '>
+      <div className='flex w-1/4 px-4'>
+        <div className='w-full bg-[#0a1f3c] rounded-lg mt-3'>
+          {
+            getFilteredFixtures().map((data) => {
+              return(
+                <LeagueCard data={data}/>
+              )
+            })
+          }
+        </div>
+      </div>
+      <div className='flex w-2/4 items-center flex-col'>
         {
           getFilteredFixtures().map((data, index) => {
             return(
@@ -57,6 +70,10 @@ export const FixtureContainer = ({toggleBettingModal}) => {
             )
           })
         }
+      </div>
+      <div className='flex w-1/5'>
+
+      </div>
     </div>
   )
 }
