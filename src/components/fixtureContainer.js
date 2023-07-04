@@ -6,6 +6,7 @@ import { getDate } from '../reducers/dateReducer';
 import { getUser } from '../reducers/userReducer';
 import { FixtureLeagueCard } from './FixtureLeagueCard';
 import { LeagueCard } from './leagueCard';
+import { UserProfile } from './userProfile';
 
 export const FixtureContainer = ({toggleBettingModal}) => {
 
@@ -108,8 +109,10 @@ export const FixtureContainer = ({toggleBettingModal}) => {
           })
         }
       </div>
-      <div className='flex w-1/5'>
-
+      <div className='flex w-1/4 px-4'>
+        <div className='w-full bg-[#0a1f3c] rounded-lg mt-3'>
+          <UserProfile />
+        </div>
       </div>
     </div>
   )
