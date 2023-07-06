@@ -30,7 +30,7 @@ export const FixtureCard = ({data}) => {
             <p className='text-[#dbd9d8] font-medium text-lg
             overflow-hidden whitespace-nowrap text-ellipsis'>{data?.teams?.home?.name}</p>
         </div>
-        <div className='bg-[#494949] rounded-md 
+        <div className='bg-[#071429] rounded-md 
         px-2 mx-2 p-1'>
             <p className='text-center text-[#dbd9d8] text-xs'>{getLocalTime(data?.fixture?.timestamp)}</p>
         </div>

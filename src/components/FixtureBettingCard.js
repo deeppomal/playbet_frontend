@@ -81,7 +81,7 @@ export const FixtureBettingCard = ({data,toggleBettingCard}) => {
       }
       else{
         legibility.isPossible = false
-        legibility.message =  'Please select one option you would like to bet on'
+        legibility.message =  'Please select an option you would like to bet on'
       }
     }
     else {
@@ -107,7 +107,7 @@ export const FixtureBettingCard = ({data,toggleBettingCard}) => {
     }
   }
   return (
-        <div className='w-full bg-[#080808] z-30 cursor-default
+        <div className='w-full bg-[#071429] z-30 cursor-default
         flex p-2 pb-4 flex-col items-center '
         onClick={(e) => handleClick(e)}>
             <p className=' mt-3 font-semibold text-xl text-[#dbd9d8]'>{data?.data?.response[0]?.bookmakers[0]?.bets[0]?.name}</p>
@@ -130,8 +130,8 @@ export const FixtureBettingCard = ({data,toggleBettingCard}) => {
                 <p className='text-[#c7c6c6] font-semibold'>
                 Stake
                 </p>
-                <input inputMode='numeric' className='bg-[#202020] border-2 mt-2 border-[#494949]
-                p-2 rounded-sm text-[#c7c6c6] outline-none' placeholder='$'
+                <input inputMode='numeric' className='bg-[#071429] border-2 mt-2 border-[#06264d]
+                p-3 rounded-sm text-[#c7c6c6] outline-none' placeholder='$'
                 value={stakeInput} 
                 onChange={(t) => handleOnChange(t.target.value)} />
             </div>
@@ -139,13 +139,13 @@ export const FixtureBettingCard = ({data,toggleBettingCard}) => {
                 <p className='text-[#49da80] font-semibold'>
                 Expected Return
                 </p>
-                <input type="text" className='bg-[#202020] border-2 mt-2 border-[#494949]
-                p-2 rounded-sm text-[#c7c6c6] outline-none' placeholder='$'
+                <input type="text" className='bg-[#071429] border-2 mt-2 border-[#06264d]
+                p-3 rounded-sm text-[#c7c6c6] outline-none' placeholder='$'
                 value={'$ '+ expReturn } disabled />
             </div>
             </div>
             {betError.length > 0 &&<p className='text-center text-red-500 mt-3'>{betError}</p>}
-            <div className='bg-[#161616] rounded-md w-1/4 p-2 cursor-pointer flex items-center justify-center mt-10'
+            <div className='bg-[#06264d] rounded-md w-1/4 p-3 cursor-pointer flex items-center justify-center mt-10'
             onClick={handleSaveBtn}>
             <p className='text-[#dbd9d8] font-medium text-lg'>Save</p>
             </div>

@@ -4,35 +4,26 @@ export const MyBetsCard = ({data,index}) => {
 
   const [isDetailsVisible,setIsDetailsVisible] = useState(false)
   return (
-    <div className={`flex flex-col w-11/12 p-5 cursor-pointer ${index != 0 && 'border-t border-[#525252]'}`}
+    <div className={`flex flex-col w-full rounded cursor-pointer ${data.hasWon ?  'bg-[#4CAF50]' : data.isResultChecked ? 'bg-[#EF5350]' : 'bg-[#071429]'}   mt-3`}
     onClick={() => setIsDetailsVisible(!isDetailsVisible)}>
-      <div className=' w-full flex items-center justify-center'>
+      <div className=' w-full flex items-center justify-center p-3'>
         <div className='w-1/2 flex items-center justify-center'>
-            <p className='text-[#dbd9d8] font-medium text-lg'>{data.home}</p>
+            <p className='text-[#dbd9d8] font-medium  text-lg'>{data.home}</p>
         </div>
         <p className='text-center text-[#dbd9d8]'>v</p>
         <div className='w-1/2 flex items-center justify-center'>
             <p className='text-[#dbd9d8] font-medium text-lg'>{data.away}</p>
         </div>
       </div>
-      {isDetailsVisible &&<div className='flex w-full h-36'>
-        <div className='flex w-11/12 mt-7 justify-between'>
-          <div className='flex flex-col items-center'>
-            <p className='text-[#c7c6c6] font-semibold'>
-              Stake
-            </p>
-            <input inputMode='numeric' className='bg-[#202020] border-2 mt-2 border-[#494949]
-            p-2 rounded-sm text-[#c7c6c6] outline-none' placeholder='$'
-            value={'$ '+data.betAmount} 
-            disabled />
+      {isDetailsVisible &&<div className='flex w-full px-3 mt-2 pb-7'>
+        <div className='flex w-full bg-[#0a1f3c] rounded p-2 justify-around'>
+          <div className='flex items-center flex-col'>
+            <p className='text-gray-50 font-normal'>Invested</p>
+            <p className='text-white text-xl font-semibold mt-3'>$ {data.betAmount}</p>
           </div>
-          <div className='flex flex-col items-center'>
-            <p className='text-[#49da80] font-semibold'>
-              Expected Return
-            </p>
-            <input type="text" className='bg-[#202020] border-2 mt-2 border-[#494949]
-            p-2 rounded-sm text-[#c7c6c6] outline-none' placeholder='$'
-            value={'$ '+ data.expectedReturn } disabled />
+          <div className='flex items-center flex-col'>
+            <p className='text-gray-50 font-normal'>Won</p>
+            <p className='text-white text-xl font-semibold mt-3'>$ {data.amountWon}</p>
           </div>
         </div>
       </div>}

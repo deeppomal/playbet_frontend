@@ -20,9 +20,9 @@ export const BettingCard = ({data,index,handleBetChange,selectedBet}) => {
     }
   return (
     <div className={`p-3 w-1/3 ${index === 2 ? 'border' : 
-    'border-y border-l'} border-[#494949] flex items-center
+    'border-y border-l'} border-[#0a1f3c] flex items-center
     justify-center cursor-pointer 
-    ${selectedBet?.value === data?.value ?'bg-[#161616]' :'bg-[#202020]'}`}
+    ${selectedBet?.value === data?.value ?'bg-[#071429]' :'bg-[#0a1f3c]'}`}
     onClick={handleBetClick}>
         <div className='flex items-center justify-center flex-col'>
             <p className='text-[#dbd9d8] font-medium '>{index === 0 ? selectedFixture?.teams?.home?.name : index === 2 ? selectedFixture?.teams?.away?.name : data?.value}</p>
