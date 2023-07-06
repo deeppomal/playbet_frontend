@@ -15,7 +15,6 @@ export const useGetBets = (id) => {
         {
             retryOnMount:false,
             refetchOnWindowFocus:false,
-            staleTime:Infinity,
         }
     )
 }

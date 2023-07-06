@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
 import { useGetBets } from '../hooks/useGetBets';
@@ -10,7 +10,11 @@ export const UserProfile = () => {
         localStorage.setItem('userData', JSON.stringify([]));
         navigate("/login");
     }
-    const {data,isError,error,isLoading} = useGetBets(localUser.googleId)
+    useEffect(()=>{
+        refetch()
+    },[localUser.balance])
+    const {data,isError,error,isLoading,refetch} = useGetBets(localUser.googleId)
+
   return (
     <div>
         <div className='flex w-full justify-between p-4'>
