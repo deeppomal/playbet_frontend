@@ -39,9 +39,16 @@ export const FixtureCard = ({data}) => {
             overflow-hidden whitespace-nowrap text-ellipsis' >{data?.teams?.away?.name}</p>
         </div>
       </div>
-      {isBettingCardVisible && isFetched &&<div className='flex'>
-        <FixtureBettingCard data={betData} toggleBettingCard={toggleBettingCard}/>
-      </div>}
+      {isLoading ?
+       
+        <div className="grid justify-center items-center bg-[#071429] p-7">
+          <div className="h-9 w-9 border-4 border-t-[#f3f3f3] border-[#1f5394] rounded-full animate-spin ">
+          </div>
+        </div>
+        :
+        isBettingCardVisible && isFetched &&<div className='flex'>
+          <FixtureBettingCard data={betData} toggleBettingCard={toggleBettingCard}/>
+        </div>}
     </div>
   )
 }

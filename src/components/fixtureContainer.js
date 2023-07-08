@@ -15,7 +15,7 @@ export const FixtureContainer = ({toggleBettingModal}) => {
   const [fixturelist,setFixtureList] = useState([])
   const [allLeagues,setAllLeagues] = useState([])
   const url = 'https://api-football-v1.p.rapidapi.com/v3/fixtures';
-  const {data,isError,error,isLoading} = useFootballAPI('fixtures',url,dateStored,'3')
+  const {data,isError,error,isLoading,isFetched} = useFootballAPI('fixtures',url,dateStored,'3')
   // const {data,isError,error,isLoading} = useFootballAPI('fixtures',url,dateStored,'960')
 
   useEffect(()=>{
@@ -42,20 +42,7 @@ export const FixtureContainer = ({toggleBettingModal}) => {
     }
     return filteredFixtures
   }
-  if(isLoading){
-    return(
-      <div className='mt-10'>
-        <p className='text-center font-semibold text-xl text-[#dbd9d8]'>Fixtures are loading...</p>
-      </div>
-    )
-  }
-  if(fixturelist.length < 1) {
-    return(
-      <div className='mt-10'>
-        <p className='text-center font-semibold text-xl text-[#dbd9d8]'>There are no fixtures today</p>
-      </div>
-    )
-  }
+
   const handleSelectedLeague = (id) => {
     let leagueIds = selectedLeagues
     leagueIds[id] = leagueIds[id] ? leagueIds[id] + 1 : 1
@@ -87,16 +74,33 @@ export const FixtureContainer = ({toggleBettingModal}) => {
       setFixtureList(filteredFixtures)
     }
   }
+  if(isLoading){
+    return(
+      <div>
+        Loading....
+      </div>
+    )
+  }
+  if(!isLoading && fixturelist == 0){
+    return(
+      <div className={`w-1/2 flex px-4`}>
+        <div className='w-full bg-[#0a1f3c] rounded-lg mt-3'>
+          <UserProfile />
+        </div>
+      </div>
+    )
+  }
   return (
-    <div className='w-full mt-5 rounded-md flex p-1  '>
+    <div className='w-full mt-5 rounded-md flex p-1 justify-center '>
       <div className='flex w-1/4 px-4'>
         <div className='w-full bg-[#0a1f3c] rounded-lg mt-3'>
-          {
+         {
             allLeagues.map((data) => {
               return(
                 <LeagueCard data={data} handleSelectedLeague = {handleSelectedLeague} />
               )
             })
+           
           }
         </div>
       </div>
@@ -107,9 +111,10 @@ export const FixtureContainer = ({toggleBettingModal}) => {
               <FixtureLeagueCard toggleBettingModal={toggleBettingModal} data={data} />
             )
           })
+         
         }
       </div>
-      <div className='flex w-1/4 px-4'>
+      <div className={`w-1/4 flex px-4`}>
         <div className='w-full bg-[#0a1f3c] rounded-lg mt-3'>
           <UserProfile />
         </div>
