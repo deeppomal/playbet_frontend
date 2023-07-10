@@ -84,7 +84,6 @@ export const FixtureContainer = ({toggleBettingModal}) => {
       </div>
     )
   }
-  console.log(Math.floor(Math.random()*16777215).toString(16))
   if(!isLoading && fixturelist == 0){
     return(
       <div className={`w-1/2 flex px-4`}>
@@ -95,8 +94,8 @@ export const FixtureContainer = ({toggleBettingModal}) => {
     )
   }
   return (
-    <div className='w-full mt-5 rounded-md flex p-1 justify-center '>
-      <div className='flex w-1/4 px-4'>
+    <div className='w-full mt-5 rounded-md flex p-1 justify-center'>
+      <div className='lg:flex w-1/4 px-4 hidden'>
         <div className='w-full bg-[#0a1f3c] rounded-lg mt-3'>
          {
             allLeagues.map((data) => {
@@ -108,7 +107,7 @@ export const FixtureContainer = ({toggleBettingModal}) => {
           }
         </div>
       </div>
-      <div className='flex w-2/4 items-center flex-col'>
+      <div className='flex w-2/3 lg:w-2/4 items-center flex-col'>
         {
           fixturelist.map((data, index) => {
             return(
@@ -118,7 +117,7 @@ export const FixtureContainer = ({toggleBettingModal}) => {
          
         }
       </div>
-      <div className={`w-1/4 flex px-4`}>
+      <div className={`lg:w-1/4 w-1/3 flex lg:px-4 px-1 `}>
         <div className='w-full bg-[#0a1f3c] rounded-lg mt-3'>
           <UserProfile />
         </div>

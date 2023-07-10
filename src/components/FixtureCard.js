@@ -27,7 +27,7 @@ export const FixtureCard = ({data}) => {
     <div className={` `} >
       <div className='flex w-full items-center justify-between p-5 cursor-pointer' onClick={handleClick}>
         <div className='w-1/3 flex justify-end'>
-            <p className='text-[#dbd9d8] font-medium text-lg
+            <p className='text-[#dbd9d8] font-medium lg:text-lg
             overflow-hidden whitespace-nowrap text-ellipsis'>{data?.teams?.home?.name}</p>
         </div>
         <div className='bg-[#071429] rounded-md 
@@ -35,7 +35,7 @@ export const FixtureCard = ({data}) => {
             <p className='text-center text-[#dbd9d8] text-xs'>{getLocalTime(data?.fixture?.timestamp)}</p>
         </div>
         <div className='w-1/3 flex '>
-            <p className='text-[#dbd9d8] font-medium text-lg 
+            <p className='text-[#dbd9d8] font-medium lg:text-lg 
             overflow-hidden whitespace-nowrap text-ellipsis' >{data?.teams?.away?.name}</p>
         </div>
       </div>

@@ -25,10 +25,10 @@ export const UserProfile = () => {
     <div>
         <div className='flex w-full justify-between p-4'>
             <div className='flex items-center'>
-                <img src={localUser.photo} className='w-16 h-16 rounded-full' />
+                <img src={localUser.photo} className='lg:w-16 lg:h-16 w-10 h-10 rounded-full' />
                 <div className='ml-3'>
-                    <p className='text-white text-xl font-semibold'>{localUser.username}</p>
-                    <p className='text-white text-lg font-semibold'>$ {localUser.balance.toFixed(2)}</p>
+                    <p className='text-white lg:text-xl font-semibold'>{localUser.username}</p>
+                    <p className='text-white lg:text-lg font-semibold'>$ {localUser.balance.toFixed(2)}</p>
                 </div>
             </div>
             <div>
