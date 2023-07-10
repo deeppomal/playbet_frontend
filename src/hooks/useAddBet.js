@@ -4,7 +4,7 @@ import axios from 'axios'
 const fetchAddBet = (data)=>{
     const options = {
         method: 'POST',
-        url: 'http://localhost:4000/bet/add-bet',
+        url: 'https://playbet-backend-ptwt.onrender.com/bet/add-bet',
         data: {
             userId: data.userId,
             fixtureId: data.fixtureId,

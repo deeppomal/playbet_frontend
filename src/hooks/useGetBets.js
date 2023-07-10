@@ -4,7 +4,7 @@ import axios from 'axios'
 const fetchGetBet = (id)=>{
     const options = {
         method: 'GET',
-        url: `http://localhost:4000/bet/get-all-bets/${id}`,
+        url: `https://playbet-backend-ptwt.onrender.com/bet/get-all-bets/${id}`,
     };
     return axios.request(options)
 }

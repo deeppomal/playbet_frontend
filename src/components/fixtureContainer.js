@@ -76,11 +76,15 @@ export const FixtureContainer = ({toggleBettingModal}) => {
   }
   if(isLoading){
     return(
-      <div>
-        Loading....
+      <div className='flex justify-center p-4 mt-5 w-full h-screen'>
+        <div className="grid justify-center pt-10 items-start">
+          <div className={`h-20 w-20 border-4 border-t-[#f3f3f3] border-[#1f5394]  rounded-full animate-spin `}>
+          </div>
+        </div>
       </div>
     )
   }
+  console.log(Math.floor(Math.random()*16777215).toString(16))
   if(!isLoading && fixturelist == 0){
     return(
       <div className={`w-1/2 flex px-4`}>

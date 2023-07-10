@@ -3,6 +3,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
 import { useGetBets } from '../hooks/useGetBets';
 import { MyBetsCard } from './MyBetsCard';
+
+
 export const UserProfile = () => {
     const navigate = useNavigate();
     const [bets,setBets] = useState([])
@@ -13,9 +15,11 @@ export const UserProfile = () => {
     }
     const {data,isError,error,isLoading,refetch} = useGetBets(localUser.googleId)
     useEffect(()=>{
-        setBets(data?.data.reverse())
+        setBets(bets => bets = data?.data?.reverse())
     },[data])
-    
+    useEffect(()=>{
+        refetch()
+    },[localUser.balance])
 
   return (
     <div>
