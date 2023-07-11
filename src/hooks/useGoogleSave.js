@@ -6,7 +6,7 @@ const saveGoogleUser = (data)=>{
         const options = {
             method: 'POST',
             url: `https://playbet-backend-ptwt.onrender.com/auth/add-user`,
-            data: {username: data.name,userEmail:data.email,googleId: data.id, photo: data.picture,balance:1000},
+            data: {username: data.name,userEmail:data.email,googleId: data.id, photo: data.picture,balance:5000},
         };
         return axios.request(options)
     }
