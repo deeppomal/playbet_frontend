@@ -86,7 +86,7 @@ export const FixtureContainer = ({toggleBettingModal}) => {
   }
   if(!isLoading && fixturelist == 0){
     return(
-      <div className={`w-1/2 flex px-4 flex-col`}>
+      <div className={`lg:w-1/2 w-10/12 flex px-4 flex-col`}>
         <div className='w-full bg-[#0a1f3c] rounded p-4 lg:mt-10 mt-5 flex flex-col items-center justify-center'>
           <p className='lg:text-2xl text-lg text-gray-100 font-bold'>No fixtures left for today!</p>
           <p className='lg:text-lg text-gray-400 mt-3'>There aren't any fixtures left today, please change the date to bet on future matches</p>
