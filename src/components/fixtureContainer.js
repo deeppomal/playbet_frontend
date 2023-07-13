@@ -86,7 +86,11 @@ export const FixtureContainer = ({toggleBettingModal}) => {
   }
   if(!isLoading && fixturelist == 0){
     return(
-      <div className={`w-1/2 flex px-4`}>
+      <div className={`w-1/2 flex px-4 flex-col`}>
+        <div className='w-full bg-[#0a1f3c] rounded p-4 lg:mt-10 mt-5 flex flex-col items-center justify-center'>
+          <p className='lg:text-2xl text-lg text-gray-100 font-bold'>No fixtures left for today!</p>
+          <p className='lg:text-lg text-gray-400 mt-3'>There aren't any fixtures left today, please change the date to bet on future matches</p>
+        </div>
         <div className='w-full bg-[#0a1f3c] rounded-lg mt-3'>
           <UserProfile />
         </div>
@@ -107,17 +111,16 @@ export const FixtureContainer = ({toggleBettingModal}) => {
           }
         </div>
       </div>
-      <div className='flex w-2/3 lg:w-2/4 items-center flex-col'>
+      <div className='flex w-11/12 lg:w-2/4 items-center flex-col'>
         {
           fixturelist.map((data, index) => {
             return(
               <FixtureLeagueCard toggleBettingModal={toggleBettingModal} data={data} />
             )
           })
-         
         }
       </div>
-      <div className={`lg:w-1/4 w-1/3 flex lg:px-4 px-1 `}>
+      <div className={`lg:w-1/4 w-1/3 lg:flex hidden lg:px-4 px-1 `}>
         <div className='w-full bg-[#0a1f3c] rounded-lg mt-3'>
           <UserProfile />
         </div>
